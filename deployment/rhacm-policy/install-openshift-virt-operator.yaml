@@ -1,0 +1,76 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: install-openshift-virt-operator
+  namespace: openshift-gitops
+  annotations:
+    policy.open-cluster-management.io/categories: CM Configuration Management
+    policy.open-cluster-management.io/controls: CM-2 Baseline Configuration
+    policy.open-cluster-management.io/description: Install OpenShift Virtualization Operator
+    policy.open-cluster-management.io/standards: NIST SP 800-53
+spec:
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1beta1
+        kind: OperatorPolicy
+        metadata:
+          name: install-openshift-virt-operator
+        spec:
+          complianceType: musthave
+          operatorGroup:
+            name: default
+            targetNamespaces:
+              - openshift-cnv
+          remediationAction: enforce
+          severity: critical
+          subscription:
+            name: kubevirt-hyperconverged
+            namespace: openshift-cnv
+            channel: stable
+            source: redhat-operators
+            sourceNamespace: openshift-marketplace
+          upgradeApproval: Automatic
+          versions:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: openshift-cnv-namespace
+        spec:
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: v1
+                kind: Namespace
+                metadata:
+                  name: openshift-cnv
+          remediationAction: enforce
+          severity: high
+---
+apiVersion: cluster.open-cluster-management.io/v1beta1
+kind: Placement
+metadata:
+  name: openshift-gitops-placement
+  namespace: openshift-gitops
+  creationTimestamp: 2025-07-29T08:37:50Z
+  generation: 1
+  resourceVersion: "13026291"
+  uid: 310f02e5-c4f7-4cd7-bfa8-b4d3bbba4c5d
+spec:
+  clusterSets:
+    - my-multicloud-env
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: install-openshift-virt-operator-placement
+  namespace: openshift-gitops
+placementRef:
+  name: openshift-gitops-placement
+  apiGroup: cluster.open-cluster-management.io
+  kind: Placement
+subjects:
+  - name: install-openshift-virt-operator
+    apiGroup: policy.open-cluster-management.io
+    kind: Policy

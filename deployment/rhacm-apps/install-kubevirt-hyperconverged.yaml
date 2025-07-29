@@ -1,0 +1,48 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: install-kubevirt-hyperconverged
+  namespace: openshift-gitops
+spec:
+  generators:
+    - clusterDecisionResource:
+        configMapRef: acm-placement
+        labelSelector:
+          matchLabels:
+            cluster.open-cluster-management.io/placement: install-kubevirt-hyperconverged-placement
+        requeueAfterSeconds: 180
+  template:
+    metadata:
+      name: install-kubevirt-hyperconverged-{{name}}
+      labels:
+        velero.io/exclude-from-backup: "true"
+    spec:
+      project: default
+      sources:
+        - repositoryType: git
+          repoURL: https://github.com/vhernandomartin/openshift-virt-demo.git
+          targetRevision: main
+          path: configs/hyperconverged
+      destination:
+        namespace: openshift-cnv
+        server: "{{server}}"
+      syncPolicy:
+        automated:
+          selfHeal: true
+          prune: false
+        syncOptions:
+          - CreateNamespace=true
+          - PruneLast=false
+---
+apiVersion: cluster.open-cluster-management.io/v1beta1
+kind: Placement
+metadata:
+  name: install-kubevirt-hyperconverged-placement
+  namespace: openshift-gitops
+spec:
+  clusterSets:
+    - my-multicloud-env
+  predicates:
+    - requiredClusterSelector:
+        labelSelector:
+          matchExpressions: []
