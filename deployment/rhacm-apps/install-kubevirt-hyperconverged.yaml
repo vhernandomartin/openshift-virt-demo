@@ -14,22 +14,27 @@ spec:
   template:
     metadata:
       name: install-kubevirt-hyperconverged-{{name}}
+      annotations:
+        apps.open-cluster-management.io/ocm-managed-cluster: "{{name}}"
+        apps.open-cluster-management.io/ocm-managed-cluster-app-namespace: openshift-gitops
+        argocd.argoproj.io/skip-reconcile: "true"
       labels:
+        apps.open-cluster-management.io/pull-to-ocm-managed-cluster: "true"
         velero.io/exclude-from-backup: "true"
     spec:
-      project: default
-      sources:
-        - repositoryType: git
-          repoURL: https://github.com/vhernandomartin/openshift-virt-demo.git
-          targetRevision: main
-          path: configs/hyperconverged
       destination:
         namespace: openshift-cnv
         server: "{{server}}"
+      project: default
+      sources:
+        - path: configs/hyperconverged
+          repoURL: https://github.com/vhernandomartin/openshift-virt-demo.git
+          targetRevision: main
+          repositoryType: git
       syncPolicy:
         automated:
-          selfHeal: true
           prune: false
+          selfHeal: true
         syncOptions:
           - CreateNamespace=true
           - PruneLast=false
@@ -42,7 +47,13 @@ metadata:
 spec:
   clusterSets:
     - my-multicloud-env
+  numberOfClusters: 2
   predicates:
     - requiredClusterSelector:
         labelSelector:
-          matchExpressions: []
+          matchExpressions:
+            - key: name
+              operator: NotIn
+              values:
+                - local-cluster
+
