@@ -80,6 +80,8 @@ objects:
                   users: fedora
                   password: '${CLOUD_USER_PASSWORD}'
                   chpasswd: { expire: False }
+                  runcmd:
+                    - [sh, -xc, "echo $(host $(dig +short myip.opendns.com @resolver1.opendns.com)|awk '{print $5}')"]
               name: cloudinitdisk
 parameters:
   - name: NAME
