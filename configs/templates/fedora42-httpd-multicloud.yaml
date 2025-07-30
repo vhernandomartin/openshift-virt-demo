@@ -1,7 +1,7 @@
 apiVersion: template.openshift.io/v1
 kind: Template
 metadata:
-  name: example
+  name: fedora42-httpd-multicloud
   labels:
     template.kubevirt.io/type: vm
     os.template.kubevirt.io/fedora: 'true'
@@ -18,10 +18,10 @@ objects:
     metadata:
       name: '${NAME}'
       annotations:
-        description: VM example
+        description: Fedora 42 httpd multi-cloud
       labels:
         app: '${NAME}'
-        vm.kubevirt.io/template: example
+        vm.kubevirt.io/template: fedora42-httpd-multicloud
         os.template.kubevirt.io/fedora: 'true'
     spec:
       running: false
