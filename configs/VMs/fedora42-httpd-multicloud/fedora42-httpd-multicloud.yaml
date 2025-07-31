@@ -47,7 +47,7 @@ spec:
             enabled: true
         firmware:
           bootloader:
-            efi: {}
+            bios: {}
         machine:
           type: q35
         memory:
