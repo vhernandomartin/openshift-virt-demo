@@ -20,7 +20,7 @@ spec:
       labels:
         kubevirt.io/domain: my-testvm-multicloud
         kubevirt.io/size: small
-        network.kubevirt.io/headlessService: headless
+        expose: my-testvm-multicloud
     spec:
       architecture: amd64
       domain:
