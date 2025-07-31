@@ -62,7 +62,7 @@ spec:
       terminationGracePeriodSeconds: 180
       volumes:
       - containerDisk:
-          image: quay.io/vhernandomartin/fedora-httpd-multicloud:v3.0
+          image: quay.io/vhernandomartin/fedora-httpd-multicloud:v4.0
         name: rootdisk
       - cloudInitNoCloud:
           userData: |-

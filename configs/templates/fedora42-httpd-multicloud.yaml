@@ -73,7 +73,7 @@ objects:
           volumes:
             - name: rootdisk
               containerDisk:
-                image: quay.io/vhernandomartin/fedora-httpd-multicloud:v3.0 
+                image: quay.io/vhernandomartin/fedora-httpd-multicloud:v4.0 
             - cloudInitNoCloud:
                 userData: |-
                   #cloud-config
