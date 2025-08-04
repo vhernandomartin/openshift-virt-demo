@@ -4,6 +4,9 @@ metadata:
   name: my-container-multicloud
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      expose: my-container-multicloud
   template:
     metadata:
       labels:
