@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: my-container-multicloud
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        expose: my-container-multicloud
+    spec:
+      containers:
+        - name: httpd
+          image: quay.io/vhernandomartin/fedora-httpd24-multicloud:v1.0
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 20

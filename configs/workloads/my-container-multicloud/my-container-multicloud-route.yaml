@@ -1,11 +1,11 @@
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: my-testvm-multicloud
+  name: my-container-multicloud
 spec:
   to:
     kind: Service
-    name: my-testvm-multicloud
+    name: my-container-multicloud
   port:
     targetPort: 8080
   tls:
