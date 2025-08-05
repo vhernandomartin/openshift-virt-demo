@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: httpd
-          image: quay.io/vhernandomartin/fedora-httpd24-multicloud:v1.0
+          image: quay.io/vhernandomartin/fedora-httpd24-multicloud:v1.1
           ports:
             - containerPort: 8080
               protocol: TCP
