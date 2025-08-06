@@ -2,4 +2,4 @@ apiVersion: multicluster.x-k8s.io/v1alpha1
 kind: ServiceExport
 metadata:
   name: my-wp-nginx
-  namespace: fedora42-nginx-wp
+  namespace: my-wordpress

@@ -5,7 +5,7 @@ metadata:
     app: fedora42-nginx-wp
     os.template.kubevirt.io/fedora: "true"
   name: fedora42-nginx-wp
-  namespace: fedora42-nginx-wp
+  namespace: my-wordpress
 spec:
   runStrategy: Always
   template:
