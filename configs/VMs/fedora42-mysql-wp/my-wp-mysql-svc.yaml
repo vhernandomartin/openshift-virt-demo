@@ -7,7 +7,7 @@ metadata:
     expose: fedora42-mysql-wp
 spec:
   ports:
-  - port: 3309
-    targetPort: 3309
+  - port: 3306
+    targetPort: 3306
   selector:
     expose: fedora42-mysql-wp
