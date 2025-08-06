@@ -57,5 +57,5 @@ spec:
       terminationGracePeriodSeconds: 180
       volumes:
       - containerDisk:
-          image: quay.io/vhernandomartin/fedora-mysql-wp:v1.3
+          image: quay.io/vhernandomartin/fedora-mysql-wp:v1.4
         name: rootdisk
