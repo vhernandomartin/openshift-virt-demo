@@ -31,6 +31,9 @@ spec:
           - disk:
               bus: virtio
             name: rootdisk
+          - disk:
+              bus: virtio
+            name: cloudinitdisk
           interfaces:
           - masquerade: {}
             model: virtio
@@ -59,3 +62,9 @@ spec:
       - containerDisk:
           image: quay.io/vhernandomartin/fedora-mysql-wp:v1.7
         name: rootdisk
+      - cloudInitNoCloud:
+          userData: |-
+            #cloud-config
+            runcmd:
+              - [sh, -xc, "/usr/local/bin/mysql_initial_startup.sh"]
+        name: cloudinitdisk
