@@ -66,5 +66,5 @@ spec:
           userData: |-
             #cloud-config
             runcmd:
-              - [sh, "/usr/local/bin/mysql_initial_startup.sh"]
+              - [/usr/local/bin/mysql_initial_startup.sh]
         name: cloudinitdisk
