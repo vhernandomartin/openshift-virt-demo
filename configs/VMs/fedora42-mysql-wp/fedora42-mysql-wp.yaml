@@ -60,11 +60,11 @@ spec:
       terminationGracePeriodSeconds: 180
       volumes:
       - containerDisk:
-          image: quay.io/vhernandomartin/fedora-mysql-wp:v1.7
+          image: quay.io/vhernandomartin/fedora-mysql-wp:v1.8
         name: rootdisk
       - cloudInitNoCloud:
           userData: |-
             #cloud-config
             runcmd:
-              - [/usr/local/bin/mysql_initial_startup.sh]
+              - [sh, "/usr/local/bin/mysql_initial_startup.sh"]
         name: cloudinitdisk
