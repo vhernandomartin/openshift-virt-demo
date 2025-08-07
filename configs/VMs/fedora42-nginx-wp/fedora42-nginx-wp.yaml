@@ -31,6 +31,9 @@ spec:
           - disk:
               bus: virtio
             name: rootdisk
+          - disk:
+              bus: virtio
+            name: cloudinitdisk
           interfaces:
           - masquerade: {}
             model: virtio
@@ -59,3 +62,9 @@ spec:
       - containerDisk:
           image: quay.io/vhernandomartin/fedora-nginx-wp:v1.2
         name: rootdisk
+      - cloudInitNoCloud:
+          userData: |-
+            #cloud-config
+            runcmd:
+              - [sh, -xc, "sed -i 's/localhost/my-wp.victorhernando.es/' /etc/nginx/conf.d/wordpress-nginx.conf"]
+        name: cloudinitdisk
