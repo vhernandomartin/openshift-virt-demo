@@ -5,7 +5,7 @@ metadata:
 spec:
   selector:
     expose: my-testvm-multicloud
-  type: ClusterIP
+  type: LoadBalancer
   ports:
   - name: http
     protocol: TCP
