@@ -7,7 +7,6 @@ metadata:
     vm.kubevirt.io/template: fedora42-httpd-multicloud
     vm.kubevirt.io/template.namespace: default
   name: my-testvm-multicloud
-  namespace: my-testvm-multicloud
 spec:
   runStrategy: Always
   template:
