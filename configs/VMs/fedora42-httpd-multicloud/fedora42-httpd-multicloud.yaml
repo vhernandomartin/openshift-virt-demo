@@ -64,6 +64,6 @@ spec:
           image: quay.io/vhernandomartin/fedora-httpd-multicloud:v5.3
         name: rootdisk
       - cloudInitNoCloud:
-          userDataSecretRef:
+          secretRef:
             name: fedora42-httpd-multicloud-secret
         name: cloudinitdisk
