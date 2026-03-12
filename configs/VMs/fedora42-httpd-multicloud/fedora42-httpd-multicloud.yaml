@@ -153,6 +153,4 @@ spec:
             runcmd:
               - [sh, -xc, "mkdir -p /var/www/html"]
               - [sh, -xc, "/usr/local/bin/update-metadata.sh"]
-              # Optional: Add a crontab to update it every minute
-              - [sh, -xc, "(crontab -l 2>/dev/null; echo '* * * * * /usr/local/bin/update-metadata.sh') | crontab -"]
         name: cloudinitdisk
