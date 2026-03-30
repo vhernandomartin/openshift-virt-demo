@@ -5,7 +5,6 @@ metadata:
     app: fedora42-mysql-wp
     os.template.kubevirt.io/fedora: "true"
   name: fedora42-mysql-wp
-  namespace: my-wordpress
 spec:
   runStrategy: Always
   template:
