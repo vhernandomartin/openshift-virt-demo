@@ -19,9 +19,6 @@ spec:
         kubevirt.io/size: small
         expose: fedora42-nginx-wp
     spec:
-      accessCredentials:
-      - secretRef:
-          name: wordpress-db-config
       architecture: amd64
       domain:
         cpu:
