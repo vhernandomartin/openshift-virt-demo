@@ -19,6 +19,9 @@ spec:
         kubevirt.io/size: small
         expose: fedora42-nginx-wp
     spec:
+      accessCredentials:
+      - secretRef:
+          name: wordpress-db-config
       architecture: amd64
       domain:
         cpu:
@@ -64,6 +67,26 @@ spec:
       - cloudInitNoCloud:
           userData: |-
             #cloud-config
+            write_files:
+            - path: /usr/local/bin/configure-wordpress.sh
+                permissions: '0755'
+                content: |
+                  #!/bin/bash
+
+                  WP_CONFIG="/var/www/html/wordpress/wp-config.php"
+
+                  # Read from mounted secret
+                  DB_NAME=$(cat /var/run/kubevirt-private/access-credentials/wordpress-db-config/DB_NAME)
+                  DB_USER=$(cat /var/run/kubevirt-private/access-credentials/wordpress-db-config/DB_USER)
+                  DB_PASSWORD=$(cat /var/run/kubevirt-private/access-credentials/wordpress-db-config/DB_PASSWORD)
+                  DB_HOST=$(cat /var/run/kubevirt-private/access-credentials/wordpress-db-config/DB_HOST)
+
+                  # Update wp-config.php
+                  sed -i "s/define( 'DB_NAME', '.*' );/define( 'DB_NAME', '$DB_NAME' );/" $WP_CONFIG
+                  sed -i "s/define( 'DB_USER', '.*' );/define( 'DB_USER', '$DB_USER' );/" $WP_CONFIG
+                  sed -i "s/define( 'DB_PASSWORD', '.*' );/define( 'DB_PASSWORD', '$DB_PASSWORD' );/" $WP_CONFIG
+                  sed -i "s/define( 'DB_HOST', '.*' );/define( 'DB_HOST', '$DB_HOST' );/" $WP_CONFIG
             runcmd:
+              - /usr/local/bin/configure-wordpress.sh
               - [sh, -xc, "sed -i 's/localhost/my-wp.victorhernando.es/' /etc/nginx/conf.d/wordpress-nginx.conf"]
         name: cloudinitdisk
