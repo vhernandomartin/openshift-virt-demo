@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: fedora42-haproxy
+spec:
+  selector:
+    expose: fedora42-haproxy
+  type: LoadBalancer
+  ports:
+  - name: http
+    protocol: TCP
+    port: 8080
+    targetPort: 8080
