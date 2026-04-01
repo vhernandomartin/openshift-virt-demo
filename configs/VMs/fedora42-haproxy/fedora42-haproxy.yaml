@@ -59,7 +59,7 @@ spec:
       terminationGracePeriodSeconds: 180
       volumes:
       - containerDisk:
-          image: quay.io/vhernandomartin/fedora-haproxy:v1.0
+          image: quay.io/vhernandomartin/fedora-haproxy:v1.1
         name: rootdisk
       - cloudInitNoCloud:
           secretRef:
